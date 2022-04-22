@@ -1,0 +1,1784 @@
+{
+	"info": {
+		"_postman_id": "ae6bc53a-cf7f-4a1a-8028-aedae2a780c9",
+		"name": "Q_BET",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "test",
+			"item": [
+				{
+					"name": "show users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show cources",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/courses"
+					},
+					"response": []
+				},
+				{
+					"name": "show question mcq",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/questions/mcq"
+					},
+					"response": []
+				},
+				{
+					"name": "show question true and false",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{host}}/questions/tf"
+					},
+					"response": []
+				},
+				{
+					"name": "show degrees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{host}}/degrees"
+					},
+					"response": []
+				},
+				{
+					"name": "SpellCheck",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/mcq/spill"
+					},
+					"response": []
+				},
+				{
+					"name": "show question",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/questions/mcq/show/2"
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "admins",
+			"item": [
+				{
+					"name": "enroll student",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"course_id\":1,\r\n    \"student_id\":3\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/enroll/student"
+					},
+					"response": []
+				},
+				{
+					"name": "enroll teacher",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"course_id\":1,\r\n    \"teacher_id\":3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/enroll/teacher"
+					},
+					"response": []
+				},
+				{
+					"name": "add admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\":\"fourth\",\r\n    \"lastname\":\"admin\",\r\n    \"email\":\"admin4@gmail.com\",\r\n    \"password\":\"123456789\",\r\n    \"role\":\"admin\"\r\n}"
+						},
+						"url": "{{host}}/admins"
+					},
+					"response": []
+				},
+				{
+					"name": "add course",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"title\": \"mathematics\",\r\n            \"description\": \"Mathematics is the science and study of quality, structure, space, and change. Mathematicians seek out patterns, formulate new conjectures, and establish truth by rigorous deduction from appropriately chosen axioms and definitions.\"\r\n}"
+						},
+						"url": "{{host}}/courses"
+					},
+					"response": []
+				},
+				{
+					"name": "update admin",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\":\"first\",\r\n    \"lastname\":\"admin\",\r\n    \"email\":\"admin1@gmail.com\"\r\n}"
+						},
+						"url": "{{host}}/admins/1"
+					},
+					"response": []
+				},
+				{
+					"name": "update teacher",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\":\"may\",\r\n    \"lastname\":\"awaad\",\r\n    \"email\":\"maay51@g.com\"\r\n}"
+						},
+						"url": "{{host}}/teachers/2"
+					},
+					"response": []
+				},
+				{
+					"name": "update student",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\":\"may\",\r\n    \"lastname\":\"awaad\",\r\n    \"email\":\"maay5144@g.com\"\r\n}"
+						},
+						"url": "{{host}}/students/7"
+					},
+					"response": []
+				},
+				{
+					"name": "update enroll student",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"course_id\":5,\r\n   \"student_id\":2\r\n}"
+						},
+						"url": "{{host}}/enroll/student/3"
+					},
+					"response": []
+				},
+				{
+					"name": "update enroll teacher",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"course_id\":3,\r\n   \"teacher_id\":1\r\n}"
+						},
+						"url": "{{host}}/enroll/teacher/4"
+					},
+					"response": []
+				},
+				{
+					"name": "delete admin",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/admins/4"
+					},
+					"response": []
+				},
+				{
+					"name": "delete course",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/courses/1"
+					},
+					"response": []
+				},
+				{
+					"name": "delete enroll teacher",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/enroll/teacher/4"
+					},
+					"response": []
+				},
+				{
+					"name": "delete enroll student",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/enroll/student/3"
+					},
+					"response": []
+				},
+				{
+					"name": "delete student",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/students/1"
+					},
+					"response": []
+				},
+				{
+					"name": "delete teacher",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/teachers/2"
+					},
+					"response": []
+				},
+				{
+					"name": "show admins",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/admins"
+					},
+					"response": []
+				},
+				{
+					"name": "show course",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/courses/10"
+					},
+					"response": []
+				},
+				{
+					"name": "show students in course",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/course/students/8"
+					},
+					"response": []
+				},
+				{
+					"name": "show teachers in course",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/course/teachers/2"
+					},
+					"response": []
+				},
+				{
+					"name": "show student",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/students/1"
+					},
+					"response": []
+				},
+				{
+					"name": "show teacher",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/teachers/2"
+					},
+					"response": []
+				},
+				{
+					"name": "show admin",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/admins/1"
+					},
+					"response": []
+				},
+				{
+					"name": "add student",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\":\"third\",\r\n    \"lastname\":\"student\",\r\n    \"email\":\"student3@gmail.com\",\r\n    \"password\":\"123456789\",\r\n    \"role\":\"student\"\r\n   \r\n}"
+						},
+						"url": "{{host}}/students"
+					},
+					"response": []
+				},
+				{
+					"name": "show students",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "{{host}}/students"
+					},
+					"response": []
+				},
+				{
+					"name": "show teachers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{host}}/teachers"
+					},
+					"response": []
+				},
+				{
+					"name": "add teacher",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\":\"third\",\r\n    \"lastname\":\"teacher\",\r\n    \"email\":\"teacher3@gmail.com\",\r\n    \"password\":\"1234567\",\r\n    \"role\":\"teacher\"\r\n    \r\n}"
+						},
+						"url": "{{host}}/teachers"
+					},
+					"response": []
+				},
+				{
+					"name": "update course",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"title\":\"h2\",\r\n   \"description\":\"zxcvbnm,./asdfghjkl;'qwertyuio[]'/zaq\"\r\n}"
+						},
+						"url": "{{host}}/courses/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "students",
+			"item": []
+		},
+		{
+			"name": "teachers",
+			"item": [
+				{
+					"name": "export grades",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/export/degree/1"
+					},
+					"response": []
+				},
+				{
+					"name": "show questions complete",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/questions/complete"
+					},
+					"response": []
+				},
+				{
+					"name": "show questions true,false",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/questions/tf"
+					},
+					"response": []
+				},
+				{
+					"name": "show questions mcq",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/questions/Mcq"
+					},
+					"response": []
+				},
+				{
+					"name": "show questions dynamic mcq",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/questions/DynamicMcq"
+					},
+					"response": []
+				},
+				{
+					"name": "add complete question",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n            \"question\": \"aasdjnasjdnjadnsjnajsdnjansdasnj\",\r\n            \"answer\": \"dsdvsdvvs\",\r\n            \"degree\": 2,\r\n            \"time\": 3,\r\n            \"status\": \"medium\",\r\n            \"course_id\": 1\r\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/questions/complete"
+					},
+					"response": []
+				},
+				{
+					"name": "add true,false question",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n            \"question\": \"aasdjnasjdnjadnsjnajsdnjansdasnj\",\r\n            \"answer1\": \"dsdvsdvvs\",\r\n            \"answer2\": \"dsdvsdvvsm\",\r\n            \"correct_answer\": \"dsdvsdvvs\",\r\n            \"degree\": 2,\r\n            \"time\": 3,\r\n            \"status\": \"medium\",\r\n            \"course_id\": 2\r\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/questions/tf"
+					},
+					"response": []
+				},
+				{
+					"name": "add mcq question",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"question\": \"aasdjnasjdnjadnsjnajsdnjansdasnj\",\r\n    \"answer1\": \"dsdvsdvvs\",\r\n    \"answer2\": \"dsdvsdvvsm\",\r\n    \"answer3\": \"dsdvsdvvsmm\",\r\n    \"correct_answer\": \"dsdvsdvvs\",\r\n    \"degree\": 2,\r\n    \"time\": 3,\r\n    \"status\": \"medium\",\r\n    \"display\": \"dynamic\",\r\n    \"course_id\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/questions/Mcq"
+					},
+					"response": []
+				},
+				{
+					"name": "add dynamic mcq question",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"question_id\":12,\r\n    \"question\": \"if 11x-2=97, find x value?\",\r\n    \"answer1\": \"x=9\",\r\n    \"answer2\": \"x=10\",\r\n    \"answer3\": \"x=11\",\r\n    \"correct_answer\": \"x=9\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/questions/DynamicMcq"
+					},
+					"response": []
+				},
+				{
+					"name": "show complete question",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "{{host}}/question/complete/2"
+					},
+					"response": []
+				},
+				{
+					"name": "show true,false question",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "{{host}}/question/tf/11"
+					},
+					"response": []
+				},
+				{
+					"name": "show mcq question",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "{{host}}/question/Mcq/10"
+					},
+					"response": []
+				},
+				{
+					"name": "show dynamic mcq question",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "{{host}}/question/DynamicMcq/10"
+					},
+					"response": []
+				},
+				{
+					"name": "update complete question",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n            \"question\": \"aasdjnasjdnjadnsjnajsdnjansdasnjm\",\r\n            \"answer\": \"dsdvsdvvsm\",\r\n            \"degree\": 1,\r\n            \"time\": 1,\r\n            \"status\": \"medium\",\r\n            \"course_id\": 2\r\n        }"
+						},
+						"url": "{{host}}/question/complete/3"
+					},
+					"response": []
+				},
+				{
+					"name": "update true,false question",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n            \"question\": \"aasdjnasjdnjadnsjnajsdnjansdasnjm\",\r\n            \"answer1\": \"dsdvsdsm\",\r\n            \"answer2\": \"dsdvsdsm\",\r\n            \"correct_answer\": \"dsdvsdsm\",\r\n            \"degree\": 1,\r\n            \"time\": 1,\r\n            \"status\": \"medium\",\r\n            \"course_id\": 3\r\n        }"
+						},
+						"url": "{{host}}/question/tf/5"
+					},
+					"response": []
+				},
+				{
+					"name": "update mcq question",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"question\": \"aasdjnasjdnjadnsjnajsdnjansdasnjm\",\r\n    \"answer1\": \"dsdvsdsm\",\r\n    \"answer2\": \"dsdvsdsm\",\r\n    \"answer3\": \"dsdvsdsm\",\r\n    \"correct_answer\": \"dsdvsdsm\",\r\n    \"degree\": 1,\r\n    \"time\": 1,\r\n    \"status\": \"medium\",\r\n    \"display\": \"dynamic\",\r\n    \"course_id\": 1\r\n}"
+						},
+						"url": "{{host}}/question/Mcq/2"
+					},
+					"response": []
+				},
+				{
+					"name": "update dynamic mcq question",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"question_id\": 10,\r\n    \"question\": \"aasdjnasjdnjadnsjnajsdnjansdasnjm\",\r\n    \"answer1\": \"dsdvsdsm\",\r\n    \"answer2\": \"dsdvsdsm\",\r\n    \"answer3\": \"dsdvsdsm\",\r\n    \"correct_answer\": \"dsdvsdsm\"\r\n}"
+						},
+						"url": "{{host}}/question/DynamicMcq/10"
+					},
+					"response": []
+				},
+				{
+					"name": "delete complete question",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/question/complete/2"
+					},
+					"response": []
+				},
+				{
+					"name": "delete true,false question",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/question/tf/2"
+					},
+					"response": []
+				},
+				{
+					"name": "delete mcq question",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/question/Mcq/1"
+					},
+					"response": []
+				},
+				{
+					"name": "delete dynamic mcq question",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/question/DynamicMcq/10"
+					},
+					"response": []
+				},
+				{
+					"name": "show exams",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
+							}
+						],
+						"url": "{{host}}/exams"
+					},
+					"response": []
+				},
+				{
+					"name": "add exam",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"name\": \"exam2\",\r\n     \"code\":\"123456\",\r\n     \"number_of_question_tf\":2,\r\n     \"number_of_question_complete\":2,\r\n     \"number_of_question_static_mcq\":2,\r\n     \"number_of_question_dynamic_mcq\":0,\r\n     \"course_id\":1\r\n}"
+						},
+						"url": "{{host}}/exam"
+					},
+					"response": []
+				},
+				{
+					"name": "show exam",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/exam/12"
+					},
+					"response": []
+				},
+				{
+					"name": "update exam",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"name\": \"exam2\",\r\n     \"code\":\"12345681\",\r\n     \"number_of_question_tf\":3,\r\n     \"number_of_question_complete\":3,\r\n     \"number_of_question_static_mcq\":3,\r\n     \"number_of_question_dynamic_mcq\":3,\r\n     \"course_id\":2\r\n}"
+						},
+						"url": "{{host}}/exam/2"
+					},
+					"response": []
+				},
+				{
+					"name": "delete exam",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/exam/12"
+					},
+					"response": []
+				},
+				{
+					"name": "set exam questions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
+							}
+						],
+						"url": "{{host}}/setQuestion/1"
+					},
+					"response": []
+				},
+				{
+					"name": "import true and false questions",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/LENOVO/Downloads/true and false question.xlsx"
+								}
+							]
+						},
+						"url": "{{host}}/import/tf"
+					},
+					"response": []
+				},
+				{
+					"name": "import dynamic mcq questions",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/LENOVO/Downloads/dynamic mcq question.xlsx"
+								}
+							]
+						},
+						"url": "{{host}}/import/Dynamicmcq"
+					},
+					"response": []
+				},
+				{
+					"name": "import mcq questions",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/LENOVO/Downloads/mcq questions.xlsx"
+								}
+							]
+						},
+						"url": "{{host}}/import/mcq"
+					},
+					"response": []
+				},
+				{
+					"name": "import complete questions",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/LENOVO/Downloads/complete questions.xlsx"
+								}
+							]
+						},
+						"url": "{{host}}/import/complete"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "sign up",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NDY5NDFlYS1kNDNiLTQwNTAtOWRlMS1lYWRmMjgxZmEzY2IiLCJqdGkiOiJiZjc3ZDNiNDI1M2ZkYTcxMzUyZGNjYmE3NTMwOGMwNDc4ZWU3ODU1NWZhZWFkMjE1MWQ0ZWZlOWE4MDQ3NmMzMzNlYWNhYzYwYzM0Njg4MSIsImlhdCI6MTYzMTc5Nzk5OC44NjY4MTgsIm5iZiI6MTYzMTc5Nzk5OC44NjY4MjQsImV4cCI6MTY2MzMzMzk5OC44MDA0OTksInN1YiI6IjExIiwic2NvcGVzIjpbXX0.EJgqU2hb9fM0rlFhQYhoKvFSXqikzNySTXfiBAgNjok1J5BdId_msZrR8UNKu3kBlGyXQxjJXU3jTdsD4c_S5AirRuXumDzKvaPGjvFNDHnR3j5S6HE4EBpuh2GPVdasyZTV0gHU1P8VYGysibIiNAkTJreaQQbpOqalBWv9Of3Z1Js4X63Gx70e4Jp4QYjRV7YWKAwj5xfoY8-uSNjWtSoA69Z01Y85EV0IdQlExbhT2v7PHtgF0xUgTGHXdM9kvON2CegK_fCJI_pQudJX-dl__DvRqXCou7f6wMCPQmFqcjRWTxqpDgJpZvM35sNM4kDW58xLsCtuN-ylg0-jxTD3h1zs4X6eSsWT3ufNdXn3mNVDxoham0uhigwm6KCSA4H1MVJV55oTV4NoBUbN3mqaPjYPfRkvAV8wXhDWYLQD0YGHtOWg5O2O5WS3G79Ha3DopVube0xAcXcWY6bEi7zkEAp6WaIgr3oahLx-xmQ7NtI7adUkkKMu1SkUWAQgG_70d7blrRe6bylHu79-rARhl8qj406wGdy6yOGR-pQyFRyewI9ZSXtwyf-QfaL6kBoWyEdDLiQ-_I4UTwnEEhzG05CbhagFG6-R5M63a9fiouMRfK_HRtAhqCG1h8chAgsC4Ffiiipym81dzwIwAMvrdS93T_3U452O7vAokdk"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\":\"first\", \r\n    \"lastname\":\"admin\",\r\n    \"email\":\"admin@gmail.com\",\r\n    \"password\":\"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/signup"
+					},
+					"response": []
+				},
+				{
+					"name": "log in",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"email\":\"teacher1@gmail.com\",\r\n    \"password\":\"1234567\"\r\n}"
+						},
+						"url": "{{host}}/login"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
