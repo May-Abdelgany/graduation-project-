@@ -93,7 +93,6 @@ class NextController extends Controller
     public function setAnswer(Request $request)
     {
         if ($request->user()->role == 'student') {
-
             $id = DB::table('students')->select("id")->where('user_id', $request->student_id)->get();
             $answer = new ExamsAnswers();
             $answer->exam_id = $request->exam_id;
@@ -111,24 +110,25 @@ class NextController extends Controller
     {
         $myGrade = 0;
         $totalGrade=0;
+        $answer=[];
         if ($request->user()->role == 'student') {
             $id = DB::table('students')->select("id")->where('user_id', $request->student_id)->get();
             $allAnswers = DB::table('exams_answers')->select("*")->where('student_id', $id[0]->id)->where('exam_id', $request->exam_id)->get();
             for ($i = 0; $i < sizeof($allAnswers); $i++) {
-                $answer = $allAnswers[$i]->answer;
-                if ($allAnswers[$i]->type == 'complete') {
+                array_push($answer,$allAnswers[$i]->answer);
+               if ($allAnswers[$i]->type == 'complete') {
                     $complete = DB::table('completes')->select("answer", "degree")->where('id', $allAnswers[$i]->question_id)->get();
                     $totalGrade += $complete[0]->degree;
-                    if (strcmp($complete[0]->answer, $answer) != 0) {
+                    if ($complete[0]->answer == $answer[$i]) {
                         $myGrade += $complete[0]->degree;
                         $update = ExamsAnswers::find($allAnswers[$i]->id);
                         $update->grade = $complete[0]->degree;
                         $update->save();
                     }
-                } else if (strcmp($allAnswers[$i]->type, 'mcq') != 0) {
+                } else if ($allAnswers[$i]->type == 'mcq') {
                     $mcq = DB::table('mcqs')->select("correct_answer", "degree")->where('id', $allAnswers[$i]->question_id)->get();
                     $totalGrade += $mcq[0]->degree;
-                    if ($mcq[0]->correct_answer == $answer) {
+                   if ($mcq[0]->correct_answer == $answer[$i]) {
                         $myGrade += $mcq[0]->degree;
                         $update = ExamsAnswers::find($allAnswers[$i]->id);
                         $update->grade = $mcq[0]->degree;
@@ -137,13 +137,13 @@ class NextController extends Controller
                 } else {
                     $tf = DB::table('t__f_s')->select("correct_answer", "degree")->where('id', $allAnswers[$i]->question_id)->get();
                     $totalGrade += $tf[0]->degree;
-                    if ($tf[0]->correct_answer == $answer) {
+                    if ($tf[0]->correct_answer == $answer[$i]) {
                         $myGrade += $tf[0]->degree;
                         $update = ExamsAnswers::find($allAnswers[$i]->id);
                         $update->grade = $tf[0]->degree;
                         $update->save();
                     }
-                }
+              }
             }
             $result= ["myGrade"=>$myGrade,"totalGrade"=>$totalGrade];
             return $this->success_response($result);

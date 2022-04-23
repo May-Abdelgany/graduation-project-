@@ -13,4 +13,5 @@ class Success
     const CREATE = "Create exam successfully!";
     const SIGNUP="sign up is successfully!";
     const ExamExist = "code of exam is exist!";
+    const ACCESS="can access to exam!";
 }

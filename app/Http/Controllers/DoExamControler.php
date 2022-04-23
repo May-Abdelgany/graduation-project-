@@ -11,6 +11,7 @@ use App\Http\Misc\Helpers\Errors;
 use App\Http\Misc\Helpers\Success;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\DoExam;
 use Carbon\Carbon;
 use Illuminate\Support\Carbon as SupportCarbon;
 use Illuminate\Support\Facades\Redirect;
@@ -21,7 +22,8 @@ class DoExamControler extends Controller
     {
         $this->middleware('auth:api');
     }
-    public function exam_id(Request $request){
+    public function exam_id(Request $request)
+    {
         if ($request->user()->role == 'student') {
             $exam = DB::table('exams')->select('*')->where("code", $request->code)->get();
             return $exam[0]->id;
@@ -91,9 +93,24 @@ class DoExamControler extends Controller
     {
         if ($request->user()->role == 'student') {
             $time1 = SupportCarbon::now('Africa/Cairo');
-            $time_now =$time1->format('H:i:s');
+            $time_now = $time1->format('H:i:s');
             return $this->success_response($time_now);
         }
     }
-
+    public function access(Request $request)
+    {
+        if ($request->user()->role == 'student') {
+            $id = DB::table('students')->select('id')->where('user_id', $request->student_id)->get();
+            $data = DB::table('do_exams')->select("*")->where('exam_id', $request->exam_id)->where('student_id', $id[0]->id)->get();
+            if ($data->isEmpty()) {
+                $add = new DoExam();
+                $add->exam_id = $request->exam_id;
+                $add->student_id = $id[0]->id;
+                $add->save();
+                return $this->success_response(Success::ACCESS);
+            } else {
+                return $this->error_response(Errors::NOTACCESS);
+            }
+        }
+    }
 }

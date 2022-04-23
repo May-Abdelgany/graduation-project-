@@ -18,4 +18,5 @@ class Errors
     const CODE = "Invalid code!";
     const SIGNUP = "error in sign up";
     const ExamNotExist = "code of exam is not exist!";
+    const NOTACCESS="can access this exam once!";
 }

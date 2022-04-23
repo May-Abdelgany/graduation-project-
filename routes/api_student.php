@@ -12,6 +12,7 @@ Route::group(['middleware' => 'AuthAccess'], function () {
     Route::POST('/startExam', [DoExamControler::class, 'startExam']);
     Route::POST('/endexam', [DoExamControler::class, 'end_exam']);
     Route::POST('/startexam', [DoExamControler::class, 'start_exam']);
+    Route::POST('/access', [DoExamControler::class, 'access']);
     Route::POST('/setAnswer', [NextController::class, 'setAnswer']);
     Route::POST('/finish', [NextController::class, 'finish']);
     Route::POST('/degree', [DegreeController::class, 'store']);
