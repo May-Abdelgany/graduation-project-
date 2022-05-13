@@ -118,8 +118,7 @@ class NextController extends Controller
                 array_push($answer,$allAnswers[$i]->answer);
                if ($allAnswers[$i]->type == 'complete') {
                     $complete = DB::table('completes')->select("answer", "degree")->where('id', $allAnswers[$i]->question_id)->get();
-                    $totalGrade += $complete[0]->degree;
-                    if ($complete[0]->answer == $answer[$i]) {
+                    if (strtolower($complete[0]->answer) == strtolower($answer[$i])) {
                         $myGrade += $complete[0]->degree;
                         $update = ExamsAnswers::find($allAnswers[$i]->id);
                         $update->grade = $complete[0]->degree;
@@ -127,7 +126,6 @@ class NextController extends Controller
                     }
                 } else if ($allAnswers[$i]->type == 'mcq') {
                     $mcq = DB::table('mcqs')->select("correct_answer", "degree")->where('id', $allAnswers[$i]->question_id)->get();
-                    $totalGrade += $mcq[0]->degree;
                    if ($mcq[0]->correct_answer == $answer[$i]) {
                         $myGrade += $mcq[0]->degree;
                         $update = ExamsAnswers::find($allAnswers[$i]->id);
@@ -136,7 +134,6 @@ class NextController extends Controller
                     }
                 } else {
                     $tf = DB::table('t__f_s')->select("correct_answer", "degree")->where('id', $allAnswers[$i]->question_id)->get();
-                    $totalGrade += $tf[0]->degree;
                     if ($tf[0]->correct_answer == $answer[$i]) {
                         $myGrade += $tf[0]->degree;
                         $update = ExamsAnswers::find($allAnswers[$i]->id);
@@ -145,8 +142,23 @@ class NextController extends Controller
                     }
               }
             }
+            $allquestions = DB::table('exam_questions')->select("*")->where('exam_id', $request->exam_id)->get();
+
+            for ($i = 0; $i < sizeof($allquestions); $i++) {
+               if ($allquestions[$i]->complete_id !=null) {
+                    $complete = DB::table('completes')->select("degree")->where('id', $allquestions[$i]->complete_id)->get();
+                    $totalGrade += $complete[0]->degree;
+                } else if ($allquestions[$i]->smcq_id !=null) {
+                    $mcq = DB::table('mcqs')->select("degree")->where('id', $allquestions[$i]->smcq_id)->get();
+                    $totalGrade += $mcq[0]->degree;
+
+                } else {
+                    $tf = DB::table('t__f_s')->select("degree")->where('id',$allquestions[$i]->t_f_id)->get();
+                    $totalGrade += $tf[0]->degree;
+              }
+            }
             $result= ["myGrade"=>$myGrade,"totalGrade"=>$totalGrade];
-            return $this->success_response($result);
+           return $this->success_response($result);
         }
     }
 }

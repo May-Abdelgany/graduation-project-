@@ -29,6 +29,17 @@ class DoExamControler extends Controller
             return $exam[0]->id;
         }
     }
+    public function student_id(Request $request, $id)
+    {
+        if ($request->user()->role == 'teacher') {
+            $all = [];
+            $student = DB::table('do_exams')->select('student_id')->where("exam_id", $id)->get();
+            for ($i = 0; $i < count($student); $i++) {
+                array_push($all, $student[$i]->student_id);
+            }
+            return $all;
+        }
+    }
     function startExam(Request $request)
     {
         $c = 0;
@@ -112,5 +123,29 @@ class DoExamControler extends Controller
                 return $this->error_response(Errors::NOTACCESS);
             }
         }
+    }
+
+    public function do_exam(Request $request, $id)
+    {
+        if ($request->user()->role == 'teacher') {
+            $student_id = DB::table('do_exams')->select('student_id')->where('exam_id', $id)->get();
+            for ($i = 0; $i < count($student_id); $i++) {
+                $user_id = DB::table('students')->select('user_id')->where('id', $student_id[$i]->student_id)->get();
+
+                $data[$i] = DB::table('users')->select('id', 'firstname', 'lastname', 'email')->where('id', $user_id[0]->user_id)->get();
+            }
+            return  $this->success_response($data);
+        }
+    }
+
+    public function do_again(Request $request)
+    {
+        if ($request->user()->role == 'teacher') {
+        }
+        $student_id = DB::table('students')->where('user_id', $request->user_id)->select('id')->get();
+        DB::table('do_exams')->where('exam_id', $request->exam_id)->where('student_id',  $student_id[0]->id)->delete();
+        DB::table('degrees')->where('exam_id', $request->exam_id)->where('student_id',  $student_id[0]->id)->delete();
+        DB::table('exams_answers')->where('exam_id', $request->exam_id)->where('student_id',  $student_id[0]->id)->delete();
+        return $this->success_response(Success::DELETED);
     }
 }

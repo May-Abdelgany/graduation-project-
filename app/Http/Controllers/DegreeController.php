@@ -47,7 +47,7 @@ class DegreeController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->user()->role == 'student') {
+         if ($request->user()->role == 'student') {
             $id = DB::table('students')->select("id")->where('user_id', $request->student_id)->get();
             $degree = new Degree();
             $degree->exam_id = $request->exam_id;
@@ -59,7 +59,6 @@ class DegreeController extends Controller
             return $this->error_response(Errors::ERROR);
         }
     }
-
     /**
      * Display the specified resource.
      *
@@ -109,19 +108,31 @@ class DegreeController extends Controller
     {
         return Excel::download(new DegreesExport($id), 'degree.xlsx');
     }
-    public function getDegree(Request $request, $id)
+    public function getDegree(Request $request)
     {
         if ($request->user()->role == 'teacher') {
-            $degree = DB::table('degrees')->where('exam_id', $id)->get();
-            //return $degree;
-            for ($i = 0; $i < count($degree); $i++) {
-                $all = [];
-                $students[$i] = DB::table('students')->select('user_id')->where('id', $degree[$i]->id)->get();
-                $users[$i] = DB::table('users')->select('firstname', 'lastname')->where('id', $students[$i][0]->user_id)->get();
-                array_push($all, $users[$i][0]->firstname, $users[$i][0]->lastname, $degree[$i]->degree);
-                $data[$i] = $all;
+            $all = [];
+            $total = 0;
+            $degree = [];
+            $question = DB::table('exam_questions')->select('smcq_id', 't_f_id', 'complete_id')->where('exam_id', $request->exam_id)->get();
+            for ($i = 0; $i < count($question); $i++) {
+                if ($question[$i]->smcq_id != null) {
+                    $degree = DB::table('mcqs')->select('degree')->where('id', $question[$i]->smcq_id)->get();
+                    $total += $degree[0]->degree;
+                } else  if ($question[$i]->t_f_id != null) {
+                    $degree = DB::table('t__f_s')->select('degree')->where('id', $question[$i]->t_f_id)->get();
+                    $total += $degree[0]->degree;
+                } else {
+                    $degree = DB::table('completes')->select('degree')->where('id', $question[$i]->complete_id)->get();
+                    $total += $degree[0]->degree;
+                }
             }
-            return $data;
+
+            $degree = DB::table('degrees')->where('exam_id', $request->exam_id)->where('student_id', $request->student_id)->get();
+            $students = DB::table('students')->select('id', 'user_id')->where('id', $request->student_id)->get();
+            $users = DB::table('users')->select('firstname', 'lastname')->where('id', $students[0]->user_id)->get();
+            array_push($all, $students[0]->id, $users[0]->firstname, $users[0]->lastname, $degree[0]->degree, $total);
+            return $all;
         }
     }
 }

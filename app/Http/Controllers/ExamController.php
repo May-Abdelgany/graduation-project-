@@ -111,7 +111,9 @@ class ExamController extends Controller
             $exam->number_of_question_tf = $request->number_of_question_tf;
             $exam->number_of_question_complete = $request->number_of_question_complete;
             $exam->number_of_question_static_mcq = $request->number_of_question_static_mcq;
-            $exam->course_id = $request->course_id;
+            $exam->number_of_question_complete = $request->number_of_question_complete;
+            $exam->end_time = $request->end_time;
+            $exam->time_of_exam= $request->time_of_exam;
             $exam->save();
             return $this->success_response(Success::UPDATED);
         } else {

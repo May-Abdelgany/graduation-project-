@@ -3,17 +3,22 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompleteController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DynamicMcqController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\McqController;
 use App\Http\Controllers\TFExamController;
 use App\Http\Controllers\DegreeController;
+use App\Http\Controllers\DetailsController;
+use App\Http\Controllers\DoExamControler;
 use App\Http\Controllers\EnrollTeachersController;
 use App\Http\Controllers\TrueFalseController;
 
 Route::group(['middleware' => 'AuthAccess'], function () {
     Route::get('/teacher/myCourses/{id}', [EnrollTeachersController::class, 'myCourses']);
-
+    Route::get('/course/student/{id}', [CourseController::class, 'studentsIncourse']);
+    Route::get('/exam/dostudent/{id}', [DoExamControler::class, 'do_exam']);
+    Route::post('/doagain', [DoExamControler::class, 'do_again']);
     //curd system of complete question
     //show all complete questions
     Route::get('/questions/complete', [CompleteController::class, 'index']);
@@ -88,6 +93,8 @@ Route::group(['middleware' => 'AuthAccess'], function () {
     Route::post('/import/complete', [CompleteController::class, 'import']);
     Route::post('/import/tf', [TrueFalseController::class, 'import']);
     Route::post('/import/Dynamicmcq', [DynamicMcqController::class, 'import']);
-    Route::get('degree/{id}', [DegreeController::class, 'getDegree']);
+    Route::post('degree', [DegreeController::class, 'getDegree']);
+    Route::post('answers/details', [DetailsController::class, 'Details']);
+    Route::get('student_id/{id}', [DoExamControler::class, 'student_id']);
 });
 Route::get('/export/degree/{id}', [DegreeController::class, 'export']);

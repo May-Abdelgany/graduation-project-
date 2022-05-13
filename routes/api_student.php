@@ -2,8 +2,9 @@
 
 use App\Http\Controllers\DegreeController;
 use App\Http\Controllers\DoExamControler;
+use App\Http\Controllers\EnrollController;
 use App\Http\Controllers\NextController;
-
+use App\Http\Controllers\spellCheckController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,5 +16,7 @@ Route::group(['middleware' => 'AuthAccess'], function () {
     Route::POST('/access', [DoExamControler::class, 'access']);
     Route::POST('/setAnswer', [NextController::class, 'setAnswer']);
     Route::POST('/finish', [NextController::class, 'finish']);
-    Route::POST('/degree', [DegreeController::class, 'store']);
+    Route::POST('/degrees', [DegreeController::class, 'store']);
+    Route::get('/student/myCourses/{id}', [EnrollController::class, 'myCourses']);
+    Route::POST('/enrolled', [EnrollController::class, 'enrolled']);
 });

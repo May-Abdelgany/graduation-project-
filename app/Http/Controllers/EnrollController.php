@@ -9,6 +9,7 @@ use App\Http\Misc\Helpers\Success;
 use App\Models\Course;
 use App\Models\Student;
 use Illuminate\Support\Facades\DB;
+use SebastianBergmann\Environment\Console;
 
 class EnrollController extends Controller
 {
@@ -66,7 +67,7 @@ class EnrollController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)//id of course
+    public function show(Request $request, $id) //id of course
     {
         if ($request->user()->role == 'admin') {
             $students_id = DB::table('enrolls')->select('student_id')->where('course_id', $id)->get()->all();
@@ -131,10 +132,37 @@ class EnrollController extends Controller
         }
         return $this->error_response(Errors::ERROR);
     }
-    public function enroll(Request $request){
-        $student_id=DB::table('students')->select('id')->where('user_id', $request->student_id)->get();
+    public function enroll(Request $request)
+    {
+        $student_id = DB::table('students')->select('id')->where('user_id', $request->student_id)->get();
 
-        $row = DB::table('enrolls')->select('*')->where('student_id', $student_id[0]->id)->where('course_id',$request->course_id)->get();
+        $row = DB::table('enrolls')->select('*')->where('student_id', $student_id[0]->id)->where('course_id', $request->course_id)->get();
         return $row[0]->id;
+    }
+
+    public function myCourses(Request $request, $id)
+    {
+        if ($request->user()->role == 'student') {
+            $row = DB::table('enrolls')->select('*')->where('student_id', $id)->get();
+            for ($i = 0; $i < count($row); $i++) {
+                $course_id[$i] = $row[$i]->course_id;
+            }
+            return  $course_id;
+        }
+    }
+
+    public function enrolled(Request $request)
+    {
+        if ($request->user()->role == 'student') {
+            $student_id = DB::table('students')->select('id')->where('user_id', $request->student_id)->get();
+            $course_id = DB::table('exams')->select('course_id')->where('id', $request->exam_id)->get();
+            $recordexist = DB::table('enrolls')->select('*')->where('student_id', $student_id[0]->id)->where('course_id', $course_id[0]->course_id)->get();
+            if (sizeof($recordexist)!=0) {
+                return $this->success_response('student enroll in course');
+            }
+            else{
+                return $this->error_response('student not enroll in course');
+            }
+        }
     }
 }

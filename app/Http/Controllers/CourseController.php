@@ -67,13 +67,12 @@ class CourseController extends Controller
      */
     public function show(Request $request, $id)
     {
-
-            $course = Course::find($id);
-            if ($course != null) {
-                return $this->success_response($course);
-            } else {
-                return $this->error_response(Errors::NOT_EXISTS);
-            }
+        $course = Course::find($id);
+        if ($course != null) {
+            return $this->success_response($course);
+        } else {
+            return $this->error_response(Errors::NOT_EXISTS);
+        }
     }
 
     /**
@@ -124,5 +123,16 @@ class CourseController extends Controller
             return $this->success_response(Success::DELETED);
         }
         return $this->error_response(Errors::ERROR);
+    }
+    public function studentsIncourse(Request $request, $id)
+    {
+        if ($request->user()->role == 'teacher') {
+            $allStudentid = DB::table('enrolls')->where('course_id', $id)->select('student_id')->get();
+            for ($i = 0; $i < count($allStudentid); $i++) {
+                $usersid[$i] = DB::table('students')->where('id', $allStudentid[$i]->student_id)->select('user_id')->get();
+                $allData[$i] = DB::table('users')->where('id', $usersid[$i][0]->user_id)->select('firstname', 'lastname','email')->get();
+            }
+            return $this->success_response($allData);
+        }
     }
 }

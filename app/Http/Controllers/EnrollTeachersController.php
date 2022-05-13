@@ -145,7 +145,7 @@ class EnrollTeachersController extends Controller
 
     public function myCourses(Request $request, $id)
     {
-        if ($request->user()->role == 'teacher' || $request->user()->role == 'stuudent') {
+        if ($request->user()->role == 'teacher') {
             $row = DB::table('enroll_teachers')->select('*')->where('teacher_id', $id)->get();
             for ($i = 0; $i < count($row); $i++) {
                 $course_id[$i] = $row[$i]->course_id;
