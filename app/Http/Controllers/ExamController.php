@@ -54,10 +54,16 @@ class ExamController extends Controller
             $exam = new Exam();
             $exam->name = $request->name;
             $exam->code = $request->code;
-            $exam->number_of_question_tf = $request->number_of_question_tf;
-            $exam->number_of_question_complete = $request->number_of_question_complete;
-            $exam->number_of_question_static_mcq = $request->number_of_question_static_mcq;
-            $exam->number_of_question_dynamic_mcq = $request->number_of_question_dynamic_mcq;
+            $exam->number_of_question_tf_easy = $request->number_of_question_tf_easy;
+            $exam->number_of_question_tf_medium = $request->number_of_question_tf_medium;
+            $exam->number_of_question_tf_difficult = $request->number_of_question_tf_difficult;
+            $exam->number_of_question_complete_easy = $request->number_of_question_complete_easy;
+            $exam->number_of_question_complete_medium = $request->number_of_question_complete_medium;
+            $exam->number_of_question_complete_difficult = $request->number_of_question_complete_difficult;
+            $exam->number_of_question_static_mcq_easy = $request->number_of_question_static_mcq_easy;
+            $exam->number_of_question_static_mcq_medium = $request->number_of_question_static_mcq_medium;
+            $exam->number_of_question_static_mcq_difficult = $request->number_of_question_static_mcq_difficult;
+            $exam->date = $request->date;
             $exam->end_time = $request->end_time;
             $exam->time_of_exam = $request->time_of_exam;
             $exam->course_id = $request->course_id;
@@ -108,12 +114,19 @@ class ExamController extends Controller
         if ($request->user()->role == 'teacher') {
             $exam->name = $request->name;
             $exam->code = $request->code;
-            $exam->number_of_question_tf = $request->number_of_question_tf;
-            $exam->number_of_question_complete = $request->number_of_question_complete;
-            $exam->number_of_question_static_mcq = $request->number_of_question_static_mcq;
-            $exam->number_of_question_complete = $request->number_of_question_complete;
+            $exam->number_of_question_tf_easy = $request->number_of_question_tf_easy;
+            $exam->number_of_question_tf_medium = $request->number_of_question_tf_medium;
+            $exam->number_of_question_tf_difficult = $request->number_of_question_tf_difficult;
+            $exam->number_of_question_complete_easy = $request->number_of_question_complete_easy;
+            $exam->number_of_question_complete_medium = $request->number_of_question_complete_medium;
+            $exam->number_of_question_complete_difficult = $request->number_of_question_complete_difficult;
+            $exam->number_of_question_static_mcq_easy = $request->number_of_question_static_mcq_easy;
+            $exam->number_of_question_static_mcq_medium = $request->number_of_question_static_mcq_medium;
+            $exam->number_of_question_static_mcq_difficult = $request->number_of_question_static_mcq_difficult;
+            $exam->date = $request->date;
             $exam->end_time = $request->end_time;
-            $exam->time_of_exam= $request->time_of_exam;
+            $exam->time_of_exam = $request->time_of_exam;
+            $exam->course_id = $request->course_id;
             $exam->save();
             return $this->success_response(Success::UPDATED);
         } else {
@@ -144,38 +157,78 @@ class ExamController extends Controller
     public function setQuestion(Request $request, $id)
     {
         if ($request->user()->role == 'teacher') {
-            $countQuestion = DB::table('exams')->select("number_of_question_tf", "number_of_question_complete", "number_of_question_static_mcq", "number_of_question_dynamic_mcq")->where('id', $id)->get();
-            $countTf =  $countQuestion[0]->number_of_question_tf;
-            $countComplete =  $countQuestion[0]->number_of_question_complete;
-            $countSMcq =  $countQuestion[0]->number_of_question_static_mcq;
-            $countDMcq =  $countQuestion[0]->number_of_question_dynamic_mcq;
-            $questionTf = DB::table('t__f_s')->select("id")->get()->random($countTf);
-            for ($i = 0; $i < $countTf; $i++) {
+            $countQuestion = DB::table('exams')->select("*")->where('id', $id)->get();
+            $countTf_easy =  $countQuestion[0]->number_of_question_tf_easy;
+            $countTf_medium =  $countQuestion[0]->number_of_question_tf_medium;
+            $countTf_difficult =  $countQuestion[0]->number_of_question_tf_difficult;
+            $countComplete_easy =  $countQuestion[0]->number_of_question_complete_easy;
+            $countComplete_medium =  $countQuestion[0]->number_of_question_complete_medium;
+            $countComplete_difficult =  $countQuestion[0]->number_of_question_complete_difficult;
+            $countSMcq_easy =  $countQuestion[0]->number_of_question_static_mcq_easy;
+            $countSMcq_medium =  $countQuestion[0]->number_of_question_static_mcq_medium;
+            $countSMcq_difficult =  $countQuestion[0]->number_of_question_static_mcq_difficult;
+            $questionTf = DB::table('t__f_s')->select("id")->where('status','easy')->get()->random( $countTf_easy);
+            for ($i = 0; $i < $countTf_easy; $i++) {
                 $exam_tf = new ExamQuestion();
                 $exam_tf->t_f_id = $questionTf[$i]->id;
                 $exam_tf->exam_id = $id;
                 $exam_tf->save();
             }
-            $questionComplete = DB::table('completes')->select("id")->get()->random($countComplete);
-            for ($i = 0; $i < $countComplete; $i++) {
+            $questionTf = DB::table('t__f_s')->select("id")->where('status','medium')->get()->random( $countTf_medium);
+            for ($i = 0; $i < $countTf_medium; $i++) {
+                $exam_tf = new ExamQuestion();
+                $exam_tf->t_f_id = $questionTf[$i]->id;
+                $exam_tf->exam_id = $id;
+                $exam_tf->save();
+            }
+            $questionTf = DB::table('t__f_s')->select("id")->where('status','difficult')->get()->random( $countTf_difficult);
+            for ($i = 0; $i < $countTf_difficult; $i++) {
+                $exam_tf = new ExamQuestion();
+                $exam_tf->t_f_id = $questionTf[$i]->id;
+                $exam_tf->exam_id = $id;
+                $exam_tf->save();
+            }
+            $questionComplete = DB::table('completes')->select("id")->where('status','easy')->get()->random($countComplete_easy);
+            for ($i = 0; $i < $countComplete_easy; $i++) {
                 $exam_complete = new ExamQuestion();
                 $exam_complete->complete_id = $questionComplete[$i]->id;
                 $exam_complete->exam_id = $id;
                 $exam_complete->save();
             }
-            $questionSMcq = DB::table('mcqs')->select("id")->where('display', 'static')->get()->random($countSMcq);
-            for ($i = 0; $i < $countSMcq; $i++) {
+            $questionComplete = DB::table('completes')->select("id")->where('status','medium')->get()->random($countComplete_medium);
+            for ($i = 0; $i < $countComplete_medium; $i++) {
+                $exam_complete = new ExamQuestion();
+                $exam_complete->complete_id = $questionComplete[$i]->id;
+                $exam_complete->exam_id = $id;
+                $exam_complete->save();
+            }
+            $questionComplete = DB::table('completes')->select("id")->where('status','difficult')->get()->random($countComplete_difficult);
+            for ($i = 0; $i < $countComplete_difficult; $i++) {
+                $exam_complete = new ExamQuestion();
+                $exam_complete->complete_id = $questionComplete[$i]->id;
+                $exam_complete->exam_id = $id;
+                $exam_complete->save();
+            }
+            $questionSMcq = DB::table('mcqs')->select("id")->where('status','easy')->where('display', 'static')->get()->random($countSMcq_easy);
+            for ($i = 0; $i < $countSMcq_easy; $i++) {
                 $exam_smcq = new ExamQuestion();
                 $exam_smcq->smcq_id = $questionSMcq[$i]->id;
                 $exam_smcq->exam_id = $id;
                 $exam_smcq->save();
             }
-            $questionDMcq = DB::table('mcqs')->select("id")->where('display', 'dynamic')->get()->random($countDMcq);
-            for ($i = 0; $i < $countDMcq; $i++) {
-                $exam_dmcq = new ExamQuestion();
-                $exam_dmcq->dmcq_id =  $questionDMcq[$i]->id;
-                $exam_dmcq->exam_id = $id;
-                $exam_dmcq->save();
+            $questionSMcq = DB::table('mcqs')->select("id")->where('status','medium')->where('display', 'static')->get()->random($countSMcq_medium);
+            for ($i = 0; $i < $countSMcq_medium; $i++) {
+                $exam_smcq = new ExamQuestion();
+                $exam_smcq->smcq_id = $questionSMcq[$i]->id;
+                $exam_smcq->exam_id = $id;
+                $exam_smcq->save();
+            }
+            $questionSMcq = DB::table('mcqs')->select("id")->where('status','difficult')->where('display', 'static')->get()->random($countSMcq_difficult);
+            for ($i = 0; $i < $countSMcq_difficult; $i++) {
+                $exam_smcq = new ExamQuestion();
+                $exam_smcq->smcq_id = $questionSMcq[$i]->id;
+                $exam_smcq->exam_id = $id;
+                $exam_smcq->save();
             }
             return $this->success_response(Success::CREATE);
         } else {

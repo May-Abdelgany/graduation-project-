@@ -158,10 +158,10 @@ class EnrollController extends Controller
             $course_id = DB::table('exams')->select('course_id')->where('id', $request->exam_id)->get();
             $recordexist = DB::table('enrolls')->select('*')->where('student_id', $student_id[0]->id)->where('course_id', $course_id[0]->course_id)->get();
             if (sizeof($recordexist)!=0) {
-                return $this->success_response('student enroll in course');
+                return $this->success_response('you enroll in course');
             }
             else{
-                return $this->error_response('student not enroll in course');
+                return $this->error_response('you not enroll in course');
             }
         }
     }

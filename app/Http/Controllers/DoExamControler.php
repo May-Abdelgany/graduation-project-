@@ -29,20 +29,10 @@ class DoExamControler extends Controller
             return $exam[0]->id;
         }
     }
-    public function student_id(Request $request, $id)
-    {
-        if ($request->user()->role == 'teacher') {
-            $all = [];
-            $student = DB::table('do_exams')->select('student_id')->where("exam_id", $id)->get();
-            for ($i = 0; $i < count($student); $i++) {
-                array_push($all, $student[$i]->student_id);
-            }
-            return $all;
-        }
-    }
     function startExam(Request $request)
     {
         $c = 0;
+
         if ($request->user()->role == 'student') {
             $exam = DB::table('exams')->select('*')->where("code", $request->code)->get();
             if ($exam->isEmpty()) {
@@ -52,7 +42,9 @@ class DoExamControler extends Controller
                 $time_now = strtotime($time1->format('H:i:s'));
                 $start_time = strtotime($exam[0]->time_of_exam);
                 $end_time = strtotime($exam[0]->end_time);
-                if ($time_now >= $start_time && $time_now < $end_time) {
+                $exam_date = $exam[0]->date;
+                $date_now = $time1->format('Y-m-d');
+                if ($exam_date == $date_now && $time_now >= $start_time && $time_now < $end_time) {
                     $count = DB::table('exam_questions')->select("*")->where("exam_id", $exam[0]->id)->count();
                     for ($i = 0; $i < pow($count, 3); $i++) {
                         $Question[$i] = DB::table('exam_questions')->select("*")->where("exam_id", $exam[0]->id)->inRandomOrder()->limit(1)->get();
@@ -94,9 +86,7 @@ class DoExamControler extends Controller
     public function  end_exam(Request $request)
     {
         if ($request->user()->role == 'student') {
-            $time1 = SupportCarbon::now('Africa/Cairo');
-            $time_now = strtotime($time1->format('H:i:s'));
-            $exam = DB::table('exams')->select('end_time')->where("code", $request->code)->get();
+            $exam = DB::table('exams')->select('end_time')->where("code", $request[0])->get();
             return $this->success_response($exam[0]->end_time);
         }
     }
@@ -124,7 +114,6 @@ class DoExamControler extends Controller
             }
         }
     }
-
     public function do_exam(Request $request, $id)
     {
         if ($request->user()->role == 'teacher') {
@@ -137,7 +126,17 @@ class DoExamControler extends Controller
             return  $this->success_response($data);
         }
     }
-
+    public function student_id(Request $request, $id)
+    {
+        if ($request->user()->role == 'teacher') {
+            $all = [];
+            $student = DB::table('do_exams')->select('student_id')->where("exam_id", $id)->get();
+            for ($i = 0; $i < count($student); $i++) {
+                array_push($all, $student[$i]->student_id);
+            }
+            return $all;
+        }
+    }
     public function do_again(Request $request)
     {
         if ($request->user()->role == 'teacher') {

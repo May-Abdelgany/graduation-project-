@@ -23,7 +23,6 @@ class CreateExamQuestionsTable extends Migration
             $table->foreign('t_f_id')->references('id')->on('t__f_s')->nullOnDelete();
             $table->unsignedBigInteger('complete_id')->nullable();
             $table->foreign('complete_id')->references('id')->on('completes')->nullOnDelete();
-            $table->unsignedBigInteger('exam_id')->nullable();
             $table->foreignId('exam_id')->references('id')->on('exams')->onDelete('cascade');
             $table->timestamps();
         });

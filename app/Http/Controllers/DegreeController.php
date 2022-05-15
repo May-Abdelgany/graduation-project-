@@ -119,6 +119,7 @@ class DegreeController extends Controller
                 if ($question[$i]->smcq_id != null) {
                     $degree = DB::table('mcqs')->select('degree')->where('id', $question[$i]->smcq_id)->get();
                     $total += $degree[0]->degree;
+
                 } else  if ($question[$i]->t_f_id != null) {
                     $degree = DB::table('t__f_s')->select('degree')->where('id', $question[$i]->t_f_id)->get();
                     $total += $degree[0]->degree;
@@ -127,7 +128,6 @@ class DegreeController extends Controller
                     $total += $degree[0]->degree;
                 }
             }
-
             $degree = DB::table('degrees')->where('exam_id', $request->exam_id)->where('student_id', $request->student_id)->get();
             $students = DB::table('students')->select('id', 'user_id')->where('id', $request->student_id)->get();
             $users = DB::table('users')->select('firstname', 'lastname')->where('id', $students[0]->user_id)->get();
