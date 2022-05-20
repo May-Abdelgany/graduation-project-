@@ -27,9 +27,7 @@ class McqsImport implements ToModel, WithHeadingRow
             'answer3' => $row['answer3'],
             'correct_answer' => $row['correct_answer'],
             'degree' => $row['degree'],
-            'time' => $row['time'],
             'status' => $row['status'],
-            'display' => $row['display'],
             'course_id' => $this->course_id
         ]);
     }

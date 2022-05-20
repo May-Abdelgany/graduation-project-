@@ -24,7 +24,6 @@ class CompletesImport implements ToModel, WithHeadingRow
             'question' => $row['question'],
             'answer' => $row['answer'],
             'degree' => $row['degree'],
-            'time' => $row['time'],
             'status' => $row['status'],
             'course_id' => $this->course_id
         ]);

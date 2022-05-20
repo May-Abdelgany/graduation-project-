@@ -22,11 +22,8 @@ class TFsImport implements ToModel, WithHeadingRow
     {
         return new T_F([
             'question' => $row['question'],
-            'answer1' => $row['answer1'],
-            'answer2' => $row['answer2'],
             'correct_answer' => $row['correct_answer'],
             'degree' => $row['degree'],
-            'time' => $row['time'],
             'status' => $row['status'],
             'course_id' => $this->course_id
         ]);
