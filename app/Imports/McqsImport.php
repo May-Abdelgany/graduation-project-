@@ -8,6 +8,11 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class McqsImport implements ToModel, WithHeadingRow
 {
+    protected $course_id ;
+    public function __construct($course_id)
+    {
+        $this->course_id = $course_id ;
+    }
     /**
      * @param array $row
      *
@@ -25,7 +30,7 @@ class McqsImport implements ToModel, WithHeadingRow
             'time' => $row['time'],
             'status' => $row['status'],
             'display' => $row['display'],
-            'course_id' => $row['course_id']
+            'course_id' => $this->course_id
         ]);
     }
 }

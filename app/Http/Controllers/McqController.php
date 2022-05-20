@@ -198,11 +198,13 @@ class McqController extends Controller
         }
         return $this->error_response(Errors::ERROR);
     }
-    public function import(Request $request)
+    public function import(Request $request , $course)
     {
+
+
         if ($request->user()->role == 'teacher') {
             $file = $request->file('file');
-            Excel::import(new McqsImport, $file);
+            Excel::import(new McqsImport($course), $file);
             return $this->success_response("import done!");
         }
         return $this->error_response(Errors::ERROR);

@@ -89,10 +89,11 @@ Route::group(['middleware' => 'AuthAccess'], function () {
     Route::get('/getmcq/{id}', [ExamController::class, 'get_mcq']);
     Route::get('/gettf/{id}', [ExamController::class, 'get_tf']);
     //import excel sheet
-    Route::post('/import/mcq', [McqController::class, 'import']);
-    Route::post('/import/complete', [CompleteController::class, 'import']);
-    Route::post('/import/tf', [TrueFalseController::class, 'import']);
+    Route::post('/import/{course}/mcq', [McqController::class, 'import']);
+    Route::post('/import/{course}/complete', [CompleteController::class, 'import']);
+    Route::post('/import/{course}/tf', [TrueFalseController::class, 'import']);
     Route::post('/import/Dynamicmcq', [DynamicMcqController::class, 'import']);
+
     Route::post('degree', [DegreeController::class, 'getDegree']);
     Route::post('answers/details', [DetailsController::class, 'Details']);
     Route::get('student_id/{id}', [DoExamControler::class, 'student_id']);

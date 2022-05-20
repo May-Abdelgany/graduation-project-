@@ -8,7 +8,11 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class TFsImport implements ToModel, WithHeadingRow
 {
-
+    protected $course_id ;
+    public function __construct($course_id)
+    {
+        $this->course_id = $course_id ;
+    }
     /**
      * @param array $row
      *
@@ -24,7 +28,7 @@ class TFsImport implements ToModel, WithHeadingRow
             'degree' => $row['degree'],
             'time' => $row['time'],
             'status' => $row['status'],
-            'course_id' => $row['course_id']
+            'course_id' => $this->course_id
         ]);
     }
 }

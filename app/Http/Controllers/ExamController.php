@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Resources\ExamResource;
 use App\Models\ExamQuestion;
 
+use function PHPUnit\Framework\isEmpty;
+
 class ExamController extends Controller
 {
     /**
@@ -157,7 +159,16 @@ class ExamController extends Controller
     public function setQuestion(Request $request, $id)
     {
         if ($request->user()->role == 'teacher') {
-            $countQuestion = DB::table('exams')->select("*")->where('id', $id)->get();
+
+            $exam=DB::table('exam_questions')->select('id')->where('exam_id',$id)->get();
+            if(!$exam->isEmpty()){
+
+             for($i=0;$i<count($exam);$i++){
+                $del = ExamQuestion::find($exam[$i]->id);
+                $del->delete();
+             }
+            }
+           $countQuestion = DB::table('exams')->select("*")->where('id', $id)->get();
             $countTf_easy =  $countQuestion[0]->number_of_question_tf_easy;
             $countTf_medium =  $countQuestion[0]->number_of_question_tf_medium;
             $countTf_difficult =  $countQuestion[0]->number_of_question_tf_difficult;
