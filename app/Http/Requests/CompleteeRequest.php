@@ -27,7 +27,6 @@ class CompleteeRequest extends FormRequest
             'question'=>'required',
             'answer'=>'required',
             'degree'=>'required',
-            'time'=>'required',
             'course_id'=>'required',
             'status'=>'required',
         ];

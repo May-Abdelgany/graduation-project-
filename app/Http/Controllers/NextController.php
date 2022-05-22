@@ -118,7 +118,8 @@ class NextController extends Controller
                 array_push($answer,$allAnswers[$i]->answer);
                if ($allAnswers[$i]->type == 'complete') {
                     $complete = DB::table('completes')->select("answer", "degree")->where('id', $allAnswers[$i]->question_id)->get();
-                    if (strtolower($complete[0]->answer) == strtolower($answer[$i])) {
+
+                    if (str_replace(' ', '', strtolower($complete[0]->answer)) == str_replace(' ', '',strtolower($answer[$i]))) {
                         $myGrade += $complete[0]->degree;
                         $update = ExamsAnswers::find($allAnswers[$i]->id);
                         $update->grade = $complete[0]->degree;

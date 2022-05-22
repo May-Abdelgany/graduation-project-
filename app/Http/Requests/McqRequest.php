@@ -30,7 +30,6 @@ class McqRequest extends FormRequest
             'answer3' => 'required',
             'correct_answer' => 'required',
             'degree' => 'required',
-            'time' => 'required',
             'course_id' => 'required',
             'status' => 'required',
             'display' => 'required'

@@ -30,7 +30,6 @@ class TfRequest extends FormRequest
             'answer2' => 'required',
             'correct_answer' => 'required',
             'degree' => 'required',
-            'time' => 'required',
             'course_id' => 'required',
             'status' => 'required',
         ];
