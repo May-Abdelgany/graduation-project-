@@ -61,7 +61,6 @@ class TrueFalseController extends Controller
             $TF->correct_answer = $request->correct_answer;
             $TF->degree = $request->degree;
             $TF->status = $request->status;
-            $TF->time = $request->time;
             $TF->course_id = $request->course_id;
             $TF->save();
             return $this->success_response(Success::ADDED);
@@ -117,7 +116,6 @@ class TrueFalseController extends Controller
             $tf->correct_answer = $request->correct_answer;
             $tf->degree = $request->degree;
             $tf->status = $request->status;
-            $tf->time = $request->time;
             $tf->course_id = $request->course_id;
             $tf->save();
             return $this->success_response(Success::UPDATED);

@@ -21,7 +21,7 @@ class CreateMcqsTable extends Migration
             $table->string('answer3');
             $table->string('correct_answer');
             $table->integer('degree');
-            $table->integer('time');
+            $table->integer('time')->default(null);;
             $table->enum('status', ['easy','medium','difficult'])->default('easy');
             $table->enum('display', ['static','dynamic'])->default('static');
             $table->foreignId('course_id')->references('id')->on('courses')->onDelete('cascade');

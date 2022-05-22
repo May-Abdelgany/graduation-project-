@@ -18,7 +18,7 @@ class CreateCompletesTable extends Migration
             $table->text('question');
             $table->string('answer');
             $table->integer('degree');
-            $table->integer('time');
+            $table->integer('time')->default(null);
             $table->enum('status', ['easy','medium','difficult'])->default('easy');
             $table->foreignId('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->timestamps();

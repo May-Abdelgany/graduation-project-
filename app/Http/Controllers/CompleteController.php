@@ -57,7 +57,6 @@ class CompleteController extends Controller
             $complete->answer = $request->answer;
             $complete->degree = $request->degree;
             $complete->status = $request->status;
-            $complete->time = $request->time;
             $complete->course_id = $request->course_id;
             $complete->save();
             return $this->success_response(Success::ADDED);
@@ -111,7 +110,6 @@ class CompleteController extends Controller
             $complete->answer = $request->answer;
             $complete->degree = $request->degree;
             $complete->status = $request->status;
-            $complete->time = $request->time;
             $complete->course_id = $request->course_id;
             $complete->save();
             return $this->success_response(Success::UPDATED);

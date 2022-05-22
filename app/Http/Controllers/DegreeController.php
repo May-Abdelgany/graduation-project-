@@ -115,6 +115,7 @@ class DegreeController extends Controller
             $total = 0;
             $degree = [];
             $question = DB::table('exam_questions')->select('smcq_id', 't_f_id', 'complete_id')->where('exam_id', $request->exam_id)->get();
+
             for ($i = 0; $i < count($question); $i++) {
                 if ($question[$i]->smcq_id != null) {
                     $degree = DB::table('mcqs')->select('degree')->where('id', $question[$i]->smcq_id)->get();

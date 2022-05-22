@@ -67,7 +67,6 @@ class McqController extends Controller
             $Mcq->degree = $request->degree;
             $Mcq->status = $request->status;
             $Mcq->display = $request->display;
-            $Mcq->time = $request->time;
             $Mcq->course_id = $request->course_id;
             $Mcq->save();
             return $this->success_response(Success::ADDED);
@@ -170,7 +169,6 @@ class McqController extends Controller
             $Mcq->degree = $request->degree;
             $Mcq->status = $request->status;
             $Mcq->display = $request->display;
-            $Mcq->time = $request->time;
             $Mcq->course_id = $request->course_id;
             $Mcq->save();
             return $this->success_response(Success::UPDATED);

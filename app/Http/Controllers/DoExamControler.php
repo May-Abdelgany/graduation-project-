@@ -106,14 +106,14 @@ class DoExamControler extends Controller
             $tf = DB::table('t__f_s')->select('*')->where("id", $question[0]->t_f_id)->get();
             return [$tf,'tf'];
         }
-    }
+    }*/
     public function  end_exam(Request $request)
     {
         if ($request->user()->role == 'student') {
             $exam = DB::table('exams')->select('end_time')->where("code", $request[0])->get();
             return $this->success_response($exam[0]->end_time);
         }
-    }*/
+    }
     public function  start_exam(Request $request)
     {
         if ($request->user()->role == 'student') {
