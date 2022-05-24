@@ -86,56 +86,26 @@ class McqController extends Controller
         $question = Mcq::find($id);
         if ($question != null) {
             if ($request->user()->role == 'student') {
-                if ($question->display == 'dynamic') {
-                    //question is array of object
-                    $questions = DB::table('dynamic_mcqs')->select('*')->where('question_id', $id)->inRandomOrder()->limit(1)->get();
-                    //question is string
-                    $question = $questions[0]->question;
-                    //make string in array of object
-                    $arr = explode('`', $question);
-                    $answer1 = $questions[0]->answer1;
-                    $answer2 = $questions[0]->answer2;
-                    $answer3 = $questions[0]->answer3;
-                    $correct_answer = $questions[0]->correct_answer;
-                    $arrcorrect = explode('`', $correct_answer);
-                    //all is answer with out random
-                    $all = [$answer1, $answer2, $answer3];
-                    //make anser display random
-                    for ($i = 0; $i < 20; $i++) {
-                        //select random answer
-                        $random[$i] = Arr::random($all);
-                        //cheak element in array it must be unique
-                        $rand = array_unique($random);
-                    }
-                    //merge between 2 array and result is array
-                    $result = array_merge($arr, $rand, $arrcorrect);
-                    $arr2 = array("question" => $result[0], "answer1" => $result[1], "answer2" => $result[2], "answer3" => $result[3], "correct_anwer" => $result[4]);
-
-                    return $this->success_response($arr2);
+                $answers = DB::table('mcqs')->select('*')
+                    ->where('id', $id)->get();
+                $question = $answers[0]->question;
+                $answer1 = $answers[0]->answer1;
+                $answer2 = $answers[0]->answer2;
+                $answer3 = $answers[0]->answer3;
+                $correct_answer = $answers[0]->correct_answer;
+                $all = [$answer1, $answer2, $answer3];
+                $rand=[];
+                for($i=0;$i<3;$i++) {
+                    $random[$i]= Arr::random($all);
+                    $index=array_search($random[$i],$all);
+                    array_splice($all,$index,1);
+                    array_push($rand,$random[$i]);
                 }
-                //if display is static
-                else {
-                    $answers = DB::table('mcqs')->select('*')
-                        ->where('id', $id)->get();
-                    $question = $answers[0]->question;
-                    $arr = explode('`', $question);
-                    $answer1 = $answers[0]->answer1;
-                    $answer2 = $answers[0]->answer2;
-                    $answer3 = $answers[0]->answer3;
-                    $correct_answer = $answers[0]->correct_answer;
-                    $arrcorrect = explode('`', $correct_answer);
-                    $all = [$answer1, $answer2, $answer3];
-                    for ($i = 0; $i < 50; $i++) {
-                        $random[$i] = Arr::random($all);
-                        $rand = array_unique($random);
-                    }
-                    $result = array_merge($arr, $rand, $arrcorrect);
-                    $arr2 = array("id"=>$id,"question" => $result[0], "answer1" => $result[1], "answer2" => $result[2], "answer3" => $result[3], "correct_anwer" => $result[4]);
-                    return $this->success_response($arr2);
-                }
-            } else if ($request->user()->role == 'teacher') {
-                return $this->success_response($question);
+                $arr2 = array("id" => $id, "question" => $question, "answer1" => $rand[0], "answer2" => $rand[1], "answer3" => $rand[2], "correct_anwer" => $correct_answer);
+                return $this->success_response($arr2);
             }
+        } else if ($request->user()->role == 'teacher') {
+            return $this->success_response($question);
         } else {
             return $this->error_response(Errors::ERROR);
         }
@@ -196,7 +166,7 @@ class McqController extends Controller
         }
         return $this->error_response(Errors::ERROR);
     }
-    public function import(Request $request , $course)
+    public function import(Request $request, $course)
     {
 
 
